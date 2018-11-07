@@ -37,7 +37,7 @@ public class StringReview {
         int z = x.compareTo(y);
         System.out.println("x vs y = " + z);
         
-        //compareto does letter math
+        //compareTo does letter math
         //calculates the alphabetical distance between 1st letter of each string (bassed on Ascii chart)
         //"t" vs "j" -> 10 letters apart in alphabet
         //positive means first this is further down the list
@@ -56,6 +56,8 @@ public class StringReview {
         System.out.println("Bib".compareTo("Bob")); //-6
         
         //compareTo = 0 = exact match
+        
+        System.out.println("That's all folks");
     }
     
 }
