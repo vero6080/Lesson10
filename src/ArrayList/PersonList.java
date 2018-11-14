@@ -17,7 +17,7 @@ public class PersonList {
             System.out.println(p[i].getName());
         }
         System.out.println("=====================");
-        
+         
         System.out.println("Remove Davidson, Greg");
         //create temp dummy object to match one in list
         Person temp = new Person("Davidson, Greg", 0);
