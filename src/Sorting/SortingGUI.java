@@ -160,8 +160,8 @@ public class SortingGUI extends javax.swing.JFrame {
                     j--;
                 } else {
                     stillLooking = false;
-                    listnum[j + 1] = itemToInsert;
                 }
+                listnum[j + 1] = itemToInsert;
             }
         }
 
@@ -183,7 +183,7 @@ public class SortingGUI extends javax.swing.JFrame {
 
     public static int findMinimum(int a[], int first) {
         int minIndex = first;
-        for (int i = first; i < a.length; i++) {
+        for (int i = first + 1; i < a.length; i++) {
             if (a[i] < a[minIndex]) {
                 minIndex = i;
             }
