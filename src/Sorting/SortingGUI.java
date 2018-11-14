@@ -3,32 +3,30 @@ package Sorting;
 import javax.swing.DefaultListModel;
 
 public class SortingGUI extends javax.swing.JFrame {
-
+    
+    DefaultListModel list;
     int listnum[] = new int[50000];
 
     public SortingGUI() {
         initComponents();
         btnquick.setEnabled(false);
+        list = new DefaultListModel();
+        numlist.setModel(list);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtoutput = new javax.swing.JTextArea();
         btngenerate = new javax.swing.JButton();
         btnbubble = new javax.swing.JButton();
         btnselection = new javax.swing.JButton();
         btninsertion = new javax.swing.JButton();
         btnquick = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        numlist = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        txtoutput.setEditable(false);
-        txtoutput.setColumns(20);
-        txtoutput.setRows(5);
-        jScrollPane1.setViewportView(txtoutput);
 
         btngenerate.setText("Generate Numbers");
         btngenerate.addActionListener(new java.awt.event.ActionListener() {
@@ -65,14 +63,16 @@ public class SortingGUI extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setViewportView(numlist);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnselection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btninsertion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -85,8 +85,7 @@ public class SortingGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btngenerate)
                         .addGap(18, 18, 18)
@@ -96,8 +95,10 @@ public class SortingGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btninsertion)
                         .addGap(18, 18, 18)
-                        .addComponent(btnquick)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnquick)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
 
         pack();
@@ -117,19 +118,17 @@ public class SortingGUI extends javax.swing.JFrame {
                 }
             }
         }
-        clear();
+        list.clear();
+        for (int i = 0; i < listnum.length; i++) {
+            list.addElement("" + listnum[i]);
+        }
     }//GEN-LAST:event_btnbubbleActionPerformed
 
     private void btngenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngenerateActionPerformed
-        /*
-        DefaultListModel list = new DefaultListModel();
-        for (int i = 0; i < listnum.length; i++) {
-            list.addElement(Math.random()*50000 + 1);
-        }
-         */
+        list.clear();
         for (int i = 0; i < listnum.length; i++) {
             listnum[i] = (int) (Math.random() * 50000 + 1);
-            txtoutput.append(listnum[i] + "\n");
+            list.addElement("" + listnum[i]);
         }
     }//GEN-LAST:event_btngenerateActionPerformed
 
@@ -141,7 +140,10 @@ public class SortingGUI extends javax.swing.JFrame {
             }
         }
 
-        clear();
+        list.clear();
+        for (int i = 0; i < listnum.length; i++) {
+            list.addElement("" + listnum[i]);
+        }
     }//GEN-LAST:event_btnselectionActionPerformed
 
     private void btninsertionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninsertionActionPerformed
@@ -163,7 +165,10 @@ public class SortingGUI extends javax.swing.JFrame {
             }
         }
 
-        clear();
+        list.clear();
+        for (int i = 0; i < listnum.length; i++) {
+            list.addElement("" + listnum[i]);
+        }
     }//GEN-LAST:event_btninsertionActionPerformed
 
     private void btnquickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnquickActionPerformed
@@ -184,13 +189,6 @@ public class SortingGUI extends javax.swing.JFrame {
             }
         }
         return minIndex;
-    }
-
-    public void clear() {
-        txtoutput.setText("");
-        for (int i = 0; i < listnum.length; i++) {
-            txtoutput.append(listnum[i] + "\n");
-        }
     }
 
     /**
@@ -234,7 +232,7 @@ public class SortingGUI extends javax.swing.JFrame {
     private javax.swing.JButton btninsertion;
     private javax.swing.JButton btnquick;
     private javax.swing.JButton btnselection;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txtoutput;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> numlist;
     // End of variables declaration//GEN-END:variables
 }
