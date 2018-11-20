@@ -6,11 +6,11 @@ public class PersonList {
 
     public static void main(String[] args) {
         Person p[] = new Person[10];
-        p[0] = new Person("Andrews, Bob", 47);
-        p[1] = new Person("Davidson, Greg", 24);
-        p[2] = new Person("Folley, Anna", 35);
+        p[0] = new Person("Andrews, Bob", 47, "M");
+        p[1] = new Person("Davidson, Greg", 24, "M");
+        p[2] = new Person("Folley, Anna", 35, "F");
         System.out.println("Adding new person, Edwards, Dave");
-        Person x = new Person("Edwards, Dave", 21);
+        Person x = new Person("Edwards, Dave", 21, "M");
         int loc = findInsertPoint(p, x);
         insert(p, x, loc);
         for (int i = 0; i < logicalSize; i++) {
@@ -20,7 +20,7 @@ public class PersonList {
          
         System.out.println("Remove Davidson, Greg");
         //create temp dummy object to match one in list
-        Person temp = new Person("Davidson, Greg", 0);
+        Person temp = new Person("Davidson, Greg", 0, "M");
         //find it in list
         loc = search(p, temp);
         //delete location found in search

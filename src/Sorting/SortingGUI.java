@@ -6,12 +6,14 @@ public class SortingGUI extends javax.swing.JFrame {
     
     DefaultListModel list;
     int listnum[] = new int[50000];
+    ExecutionTimer x;
 
     public SortingGUI() {
         initComponents();
         btnquick.setEnabled(false);
         list = new DefaultListModel();
         numlist.setModel(list);
+        x = new ExecutionTimer();
     }
 
     @SuppressWarnings("unchecked")
@@ -25,6 +27,8 @@ public class SortingGUI extends javax.swing.JFrame {
         btnquick = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         numlist = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
+        lbltime = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,13 +69,25 @@ public class SortingGUI extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(numlist);
 
+        jLabel1.setText("Time it took to sort:");
+
+        lbltime.setBackground(new java.awt.Color(255, 255, 255));
+        lbltime.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbltime.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lbltime.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbltime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnselection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -85,7 +101,8 @@ public class SortingGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btngenerate)
                         .addGap(18, 18, 18)
@@ -95,10 +112,12 @@ public class SortingGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btninsertion)
                         .addGap(18, 18, 18)
-                        .addComponent(btnquick)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
+                        .addComponent(btnquick)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbltime, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -107,7 +126,8 @@ public class SortingGUI extends javax.swing.JFrame {
     private void btnbubbleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbubbleActionPerformed
         int k = 0;
         boolean exchangeMade = true;
-
+        x.start();
+        
         while ((k < listnum.length - 1) && exchangeMade) {
             exchangeMade = false;
             k++;
@@ -122,10 +142,14 @@ public class SortingGUI extends javax.swing.JFrame {
         for (int i = 0; i < listnum.length; i++) {
             list.addElement("" + listnum[i]);
         }
+        
+        x.end();
+        lbltime.setText("" + x.duration() + "ms");
     }//GEN-LAST:event_btnbubbleActionPerformed
 
     private void btngenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngenerateActionPerformed
         list.clear();
+        lbltime.setText(null);
         for (int i = 0; i < listnum.length; i++) {
             listnum[i] = (int) (Math.random() * 50000 + 1);
             list.addElement("" + listnum[i]);
@@ -133,6 +157,7 @@ public class SortingGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btngenerateActionPerformed
 
     private void btnselectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnselectionActionPerformed
+        x.start();
         for (int i = 0; i < listnum.length - 1; i++) {
             int minIndex = findMinimum(listnum, i);
             if (minIndex != i) {
@@ -144,12 +169,16 @@ public class SortingGUI extends javax.swing.JFrame {
         for (int i = 0; i < listnum.length; i++) {
             list.addElement("" + listnum[i]);
         }
+        
+        x.end();
+        lbltime.setText("" + x.duration() + "ms");
     }//GEN-LAST:event_btnselectionActionPerformed
 
     private void btninsertionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninsertionActionPerformed
         int itemToInsert, j;
         boolean stillLooking;
-
+        x.start();
+        
         for (int i = 1; i < listnum.length; i++) {
             itemToInsert = listnum[i];
             j = i - 1;
@@ -169,6 +198,9 @@ public class SortingGUI extends javax.swing.JFrame {
         for (int i = 0; i < listnum.length; i++) {
             list.addElement("" + listnum[i]);
         }
+        
+        x.end();
+        lbltime.setText("" + x.duration() + "ms");
     }//GEN-LAST:event_btninsertionActionPerformed
 
     private void btnquickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnquickActionPerformed
@@ -232,7 +264,9 @@ public class SortingGUI extends javax.swing.JFrame {
     private javax.swing.JButton btninsertion;
     private javax.swing.JButton btnquick;
     private javax.swing.JButton btnselection;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbltime;
     private javax.swing.JList<String> numlist;
     // End of variables declaration//GEN-END:variables
 }

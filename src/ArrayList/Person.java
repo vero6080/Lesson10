@@ -3,10 +3,12 @@ package ArrayList;
 public class Person implements Comparable <Person>{
     private String name;
     private int age;
+    private String gender;
     
-    public Person(String nm, int ag){
+    public Person(String nm, int ag, String g){
         name = nm;
         age = ag;
+        gender = g;
     }
     
     public String getName(){
@@ -20,10 +22,16 @@ public class Person implements Comparable <Person>{
     public int getAge() {
         return age;
     }
+    
+    public String getGender() {
+        return gender;
+    }
 
     @Override
     public String toString() {
-        return "Person{" + "name=" + name + ", age=" + age + '}';
+        String s = "Name: " + getName();
+        s += "\nAge: " + getAge();
+        return s;
     }
 
     @Override

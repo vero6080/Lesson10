@@ -6,10 +6,10 @@ public class PersonArrayList {
 
     public static void main(String[] args) {
         ArrayList <Person> people = new ArrayList();
-        people.add(new Person("Burns, Monty",92));
-        people.add(new Person("Prince, Martin",56));
-        people.add(new Person("Simpson, Bart",12));
-        people.add(new Person("Van Houten, Millhouse",13));
+        people.add(new Person("Burns, Monty",92,"M"));
+        people.add(new Person("Prince, Martin",56,"M"));
+        people.add(new Person("Simpson, Bart",12,"M"));
+        people.add(new Person("Van Houten, Millhouse",13,"M"));
         
         for (Person x : people) {
             System.out.println(x.getName() + "\t" + x.getAge());
@@ -18,8 +18,8 @@ public class PersonArrayList {
         
         
         Person a, b;
-        a = new Person("Simpson, Maggie", 1);
-        b = new Person("Whiggum, Clancey", 44);
+        a = new Person("Simpson, Maggie", 1,"F");
+        b = new Person("Whiggum, Clancey", 44,"M");
         System.out.println("Inserting Maggie and Clancey");
         int loc = findInsertPoint(people, a);
         people.add(loc, a);
@@ -31,7 +31,7 @@ public class PersonArrayList {
         System.out.println("=============================");
         
         System.out.println("Removing Millhouse");
-        Person temp = new Person("Van Houten, Millhouse", 0);
+        Person temp = new Person("Van Houten, Millhouse", 0,"M");
         loc = search(people, temp);
         people.remove(loc);
         System.out.println("=============================");
