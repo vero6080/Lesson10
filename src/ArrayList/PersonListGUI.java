@@ -4,44 +4,40 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-/*
-Fix bug with viewing person
--affects one person in list depending on people added
--out of bounds exception
-*/
-
 public class PersonListGUI extends javax.swing.JFrame {
-    
-    ArrayList <Person> people = new ArrayList();
+
+    ArrayList<Person> people = new ArrayList();
     DefaultListModel list = new DefaultListModel();
 
     public PersonListGUI() {
         initComponents();
         people.add(new Person("Bob", 25, "M"));
         people.add(new Person("Fran", 55, "F"));
-        people.add(new Person("Mike", 15, "M"));
         people.add(new Person("Jenny", 30, "F"));
+        people.add(new Person("Mike", 15, "M"));
         personlist.setModel(list);
-        for(Person p: people)
+        for (Person p : people) {
             list.addElement(p.getName());
+        }
     }
-    
+
     public void clearForm() {
         txtname.setText("");
         txtage.setText("");
         buttonGroup1.clearSelection();
         personlist.clearSelection();
     }
-    
+
     public void show(Person p) {
         txtname.setText(p.getName());
         txtage.setText("" + p.getAge());
-        if(p.getGender()=="M")
+        if (p.getGender() == "M") {
             optmale.setSelected(true);
-        else
+        } else {
             optfemale.setSelected(true);
+        }
     }
-    
+
     public static int search(ArrayList a, Object searchValue) {
         int left = 0;
         int right = a.size() - 1;
@@ -280,37 +276,43 @@ public class PersonListGUI extends javax.swing.JFrame {
 
     private void mnuaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuaddActionPerformed
         String gender;
-        if(optmale.isSelected())
+        if (optmale.isSelected()) {
             gender = "M";
-        else if (optfemale.isSelected())
+        } else if (optfemale.isSelected()) {
             gender = "F";
-        else{
+        } else {
             JOptionPane.showMessageDialog(this, "Please select a gender");
             return;
         }
         Person temp = new Person(txtname.getText(), Integer.parseInt(txtage.getText()), gender);
-        int s = search(people, temp);
-        if (s!=-1)
-            JOptionPane.showMessageDialog(this, "This person already exists");
-        else{
-            int loc = findInsertPoint(people, temp);
-            people.add(loc, temp);
-            list.add(loc, temp.getName());
+        if (people.isEmpty()) {
+            people.add(temp);
+            list.addElement(temp.getName());
+        } else {
+            int s = search(people, temp);
+            if (s != -1) {
+                JOptionPane.showMessageDialog(this, "This person already exists");
+            } else {
+                int loc = findInsertPoint(people, temp);
+                people.add(loc, temp);
+                list.add(loc, temp.getName());
+            }
         }
     }//GEN-LAST:event_mnuaddActionPerformed
 
     private void mnumaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnumaleActionPerformed
         list.clear();
         for (Person person : people) {
-            if (person.getGender()=="M")
+            if (person.getGender() == "M") {
                 list.addElement(person.getName());
+            }
         }
         mnuadd.setEnabled(false);
     }//GEN-LAST:event_mnumaleActionPerformed
 
     private void mnudeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnudeleteActionPerformed
         String delete = personlist.getSelectedValue();
-        if (delete==null){
+        if (delete == null) {
             JOptionPane.showMessageDialog(this, "Select a person to delete them");
             return;
         }
@@ -332,8 +334,9 @@ public class PersonListGUI extends javax.swing.JFrame {
     private void mnufemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnufemaleActionPerformed
         list.clear();
         for (Person person : people) {
-            if (person.getGender()=="F")
+            if (person.getGender() == "F") {
                 list.addElement(person.getName());
+            }
         }
         mnuadd.setEnabled(false);
     }//GEN-LAST:event_mnufemaleActionPerformed
@@ -351,7 +354,7 @@ public class PersonListGUI extends javax.swing.JFrame {
         int loc = search(people, new Person(name, 0, null));
         show(people.get(loc));
     }//GEN-LAST:event_personlistMouseClicked
- 
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
