@@ -10,7 +10,6 @@ public class SortingGUI extends javax.swing.JFrame {
 
     public SortingGUI() {
         initComponents();
-        btnquick.setEnabled(false);
         list = new DefaultListModel();
         numlist.setModel(list);
         x = new ExecutionTimer();
@@ -204,7 +203,16 @@ public class SortingGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btninsertionActionPerformed
 
     private void btnquickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnquickActionPerformed
-        // TODO add your handling code here:
+        x.start();
+        quickSort(listnum, 0, listnum.length-1);
+        
+        list.clear();
+        for (int i = 0; i < listnum.length; i++) {
+            list.addElement("" + listnum[i]);
+        }
+        
+        x.end();
+        lbltime.setText("" + x.duration() + "ms");
     }//GEN-LAST:event_btnquickActionPerformed
 
     public static void swap(int[] a, int x, int y) {
@@ -221,6 +229,27 @@ public class SortingGUI extends javax.swing.JFrame {
             }
         }
         return minIndex;
+    }
+    
+    public static void quickSort (int[] a, int left, int right){
+        if (left >= right) return;
+        
+        int i = left;
+        int j = right;
+        int pivotValue = a[(left + right)/2];
+        while (i < j){
+            while (a[i] < pivotValue) i++;
+            while (pivotValue < a[j]) j--;
+            if (i <= j){
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+                i++;
+                j--;
+            }
+        }
+        quickSort(a, left, j);
+        quickSort(a, i, right);
     }
 
     /**
